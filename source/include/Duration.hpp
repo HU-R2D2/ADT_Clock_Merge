@@ -39,7 +39,7 @@
 //! @date 14-03-16
 //! @version 0.1
 //!
-//! @brief A length of time (interval between two moments).
+//! @brief A length of time (interval between two TimeStamps).
 //! Duration is a ratio scale: addition and subtraction of differences 
 //! are meaningful (and yield durations), and so are multiplication 
 //! and division by a scalar (also yield a duration).
@@ -48,7 +48,7 @@
 #define _DURATION_HPP
 
 #include <iostream>
-#include "Moment.hpp"
+#include "TimeStamp.hpp"
 #include "ADT_Base.hpp"
 namespace r2d2{
 class Speed;
