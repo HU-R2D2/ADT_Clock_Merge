@@ -1,10 +1,12 @@
 // ++--++
 // Roborescue
-// @file <Moment.cpp>
+// @file <TimeStamp.cpp>
 // @date Created: <5-3-16>
+// @date Merged: <6-6-16>
 // @version <1.0.0>
 //
 // @author <Ferdi Stoeltie 1665045>
+// @Merger <Zehna van den Berg 1662506>
 //
 // @section LICENSE
 // License: newBSD
@@ -28,51 +30,51 @@
 // LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 // OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ++--++
-#include "../include/Moment.hpp"
+#include "../include/TimeStamp.hpp"
 
 namespace r2d2{
-Moment::Moment( ) {
+TimeStamp::TimeStamp( ) {
 }
-Moment::Moment(double value) throw (MomentException) :  ADT_Base{value} {
+TimeStamp::TimeStamp(double value) throw (TimeStampException) :  ADT_Base{value} {
    if(this->value < 0)  {
-      throw MomentException("Moment exception");
+      throw TimeStampException("TimeStamp exception");
    }
       
 }
-Moment& Moment::operator= (const Moment& m)  {
+TimeStamp& TimeStamp::operator= (const TimeStamp& m)  {
    if(&m == this) {
       return *this;
    }
     this->value = m.value;
     return *this;
 }
-Moment Moment::operator+ ( const Duration & rhs ) const  {
-   // Return new Moment that is the result of adding a given Duration
-   // Old Moment is not modified
+TimeStamp TimeStamp::operator+ ( const Duration & rhs ) const  {
+   // Return new TimeStamp that is the result of adding a given Duration
+   // Old TimeStamp is not modified
    // If addition results in < 0, return 0
    double saved_result;
-   Moment rMoment(0);
+   TimeStamp rTimeStamp(0);
    if( (saved_result = (this->value + rhs.get_seconds()) ) < 0)  {
-      rMoment.value = 0;
-      return rMoment;
+      rTimeStamp.value = 0;
+      return rTimeStamp;
    }
-   rMoment.value = this->value + rhs.get_seconds();
-   return rMoment;
+   rTimeStamp.value = this->value + rhs.get_seconds();
+   return rTimeStamp;
 }
-Moment Moment::operator- ( const Duration & rhs ) const  {
+TimeStamp TimeStamp::operator- ( const Duration & rhs ) const  {
    // If Subtraction results in a time smaller than 0, return 0
    double saved_result;
-   Moment rMoment(0);
+   TimeStamp rTimeStamp(0);
    if( (saved_result = (this->value - rhs.get_seconds()) ) < 0)  {
-      rMoment.value = 0;
-      return rMoment;
+      rTimeStamp.value = 0;
+      return rTimeStamp;
    }
-   rMoment.value = saved_result;
-   return rMoment;
+   rTimeStamp.value = saved_result;
+   return rTimeStamp;
 }
-Duration Moment::operator- (const Moment & rhs) const {
-   // Return new Duration that is the result of subtracting a given Moment
-   // Old Moment not modified
+Duration TimeStamp::operator- (const TimeStamp & rhs) const {
+   // Return new Duration that is the result of subtracting a given TimeStamp
+   // Old TimeStamp not modified
    // If Subtracting results in a time smaller than 0, return Duration of 0
    assert(rhs.value > 0);
    double saved_result;
@@ -82,32 +84,32 @@ Duration Moment::operator- (const Moment & rhs) const {
    return (saved_result * Duration::SECOND);
 }
 
-Moment& Moment::operator+= (const Duration & rhs)  {
+TimeStamp& TimeStamp::operator+= (const Duration & rhs)  {
    //Does not change Duration
    this->value += rhs.get_seconds();
    return *this;
 }
 
-Moment& Moment::operator-= (const Duration & rhs)  {
+TimeStamp& TimeStamp::operator-= (const Duration & rhs)  {
    //Does not change Duration
    this->value -= rhs.get_seconds();
    return *this;
 }
 
-double Moment::get_time() const  {
+double TimeStamp::get_time() const  {
    return this->value;
 }
 
-ostream& operator<< (ostream & lhs, const Moment &rhs)   {
+ostream& operator<< (ostream & lhs, const TimeStamp &rhs)   {
    lhs << rhs.value;
    return lhs;
 }
 
-istream& operator>> (istream & lhs, Moment & rhs)  {
+istream& operator>> (istream & lhs, TimeStamp & rhs)  {
    double read_error = -1;
    lhs >> read_error;
    if(read_error <= -1) {
-      throw MomentException("Moment Exception");
+      throw TimeStampException("TimeStamp Exception");
    }
    rhs.value = read_error;
    return lhs;
