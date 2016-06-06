@@ -1,0 +1,159 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Build directory
+build/*
+.idea/adt.iml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/modules.xml
+
+
+# Created by https://www.gitignore.io/api/sublimetext,cmake,c++,images
+
+### SublimeText ###
+# cache files for sublime text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+
+# workspace files are user-specific
+*.sublime-workspace
+
+# project files should be checked into the repository, unless a significant
+# proportion of contributors will probably not be using SublimeText
+# *.sublime-project
+
+# sftp configuration file
+sftp-config.json
+
+
+### CMake ###
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Makefile
+cmake_install.cmake
+install_manifest.txt
+
+
+### C++ ###
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+
+### Images ###
+# JPEG
+.jpg
+.jpeg
+.jpe
+.jif
+.jfif
+.jfi
+
+# JPEG 2000
+.jp2
+.j2k
+.jpf
+.jpx
+.jpm
+.mj2
+
+# JPEG XR
+.jxr
+.hdp
+.wdp
+
+# Graphics Interchange Format
+.gif
+
+# RAW
+.raw
+
+# Web P
+.webp
+
+# Portable Network Graphics
+.png
+
+# Animated Portable Network Graphics
+.apng
+
+# Multiple-image Network Graphics
+.mng
+
+# Tagged Image File Format
+.tiff
+.tif
+
+# Scalable Vector Graphics
+.svg
+.svgz
+
+# Portable Document Format
+.pdf
+
+# X BitMap
+.xbm
+
+# BMP
+.bmp
+.dib
+
+# ICO
+.ico
+
+ 
