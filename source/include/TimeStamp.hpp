@@ -69,8 +69,6 @@ class Duration;
 class TimeStamp : public ADT_Base<TimeStamp>{
 friend ADT_Base<TimeStamp>;
 friend class Clock;
-// Testing only! remove when moment is merged with clock.
-friend class test_Clock; 
 public:
    
    //!   @brief Public default constructor with time 0

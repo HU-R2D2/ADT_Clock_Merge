@@ -1,4 +1,4 @@
-//! @file <Duration.hpp>
+ //! @file <Duration.hpp>
 //! @date Created: <5-3-16>
 //! @version <1.0.0>
 //!
