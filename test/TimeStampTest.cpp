@@ -42,8 +42,8 @@ using namespace r2d2;
 */
 
 bool timestamp_range(TimeStamp ts1, TimeStamp ts2, double offset = 0.0001){
-    return ((ts1 - (offset * MILLISECOND)) < ts2) &&
-     (ts2 < (ts1 + (offset * MILLISECOND)));
+    return ((ts1 - (offset * Duration::MILLISECOND)) < ts2) &&
+     (ts2 < (ts1 + (offset * Duration::MILLISECOND)));
 }
 
 namespace r2d2{
@@ -59,6 +59,7 @@ TEST(TimeStamp,  CopyConstructor) {
 }
 
 TEST(TimeStamp,  Assignment) {
+    TimeStamp t1();
 }
 
 
