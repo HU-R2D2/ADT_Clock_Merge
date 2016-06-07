@@ -39,32 +39,28 @@ using namespace std;
 using namespace r2d2;
 /**
    TimeStamp Tests
-
 */
-namespace r2d2{
-TEST(TimeStamp,  Constructors) {
-    
-    TimeStamp t1 = Clock::get_current_time();
-    sleep(1);
-    TimeStamp t2 = Clock::get_current_time();
-    
-    Duration d1 = t2 - t1;
-    
-    std::cout << "duration: " << d1 << ", t1: " << t1 << ", t2: " << t2 << '\n';
-   // TimeStamp m1;
-   // EXPECT_EQ( m1.get_time(), 0 ) << "Default constructor, system time";
 
-   // double d = 10000;
-   // TimeStamp m2 = test_clock.getTimeStamp(d);
-   
-   // EXPECT_EQ( m2.get_time(), d ) << "Given time value";
-   // d = -10000;
-   // try{
-      // TimeStamp m3 = test_clock.getTimeStamp(d);
-      // EXPECT_NE( m3.get_time(), d) << "Not negative";
-   // }catch(TimeStampException e) {
-      // cout << e.what() << endl;
-   // }
+bool timestamp_range(TimeStamp ts1, TimeStamp ts2, double offset = 0.0001){
+    return ((ts1 - (offset * MILLISECOND)) < ts2) &&
+     (ts2 < (ts1 + (offset * MILLISECOND)));
 }
+
+namespace r2d2{
+//assumes it is created if it doesn't crash
+TEST(TimeStamp,  DefaultConstructor) {
+    TimeStamp t1();
+}
+
+TEST(TimeStamp,  CopyConstructor) {
+    TimeStamp t1 = Clock::get_current_time();
+    TimeStamp t2(t1);
+    EXPECT_EQ(t2.get_time(), t1.get_time());
+}
+
+TEST(TimeStamp,  Assignment) {
+}
+
+
    
 }
