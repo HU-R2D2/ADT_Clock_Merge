@@ -3,9 +3,11 @@
 //============================================================================================================
 //Class Clock
 //============================================================================================================
-r2d2::TimeStamp r2d2::Clock::get_current_time()
+namespace r2d2{
+TimeStamp Clock::get_current_time()
 {
-    TimeStamp time;
-    time = time((double)std::chrono::high_resolution_clock::now().time_since_epoch().count() / 1000);
-	return time;
+    std::cout << std::chrono::high_resolution_clock::now().time_since_epoch().count() << '\n';
+	return TimeStamp((double)std::chrono::high_resolution_clock::now().time_since_epoch().count() 
+    / (1000 * 1000 * 1000));
+}
 }
