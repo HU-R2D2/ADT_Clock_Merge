@@ -41,9 +41,9 @@ using namespace r2d2;
    TimeStamp Tests
 */
 
-bool timestamp_range(TimeStamp ts1, TimeStamp ts2, double offset = 0.0001){
-    return ((ts1 - (offset * Duration::MILLISECOND)) < ts2) &&
-     (ts2 < (ts1 + (offset * Duration::MILLISECOND)));
+bool double_range(double d1, double d2, double offset = 0.0001){
+    return ((d1 - (offset)) < d2) &&
+     (d2 < (d1 + (offset)));
 }
 
 namespace r2d2{
@@ -65,12 +65,14 @@ TEST(TimeStamp,  Assignment) {
 //TimeStamp operator+ ( const Duration& refDuration ) const;
 TEST(TimeStamp, AddConstDuration) {
     TimeStamp ts1 = Clock::get_current_time();
+    sleep(1);
     TimeStamp ts2 = Clock::get_current_time();
     Duration d = Duration(Duration::SECOND * 1);
     
+    TimeStamp ts1old = ts1;
     TimeStamp ts3 = ts1 + d;
-    TimeStamp ts4 = ts2 + d;
-    EXPECT_EQ(ts3.get_time(), ts4.get_time());
+    EXPECT_EQ(ts1.get_time(), ts1old.get_time());
+    EXPECT_TRUE(double_range(ts2.get_time(), ts3.get_time()));
 }
     
 //TimeStamp& operator+= (const Duration& refDuration);
