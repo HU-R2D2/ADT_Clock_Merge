@@ -11,19 +11,10 @@
 /// \author Thijs Hendrickx, Zehna van den Berg, Waila Woe, Aydin Biber
 /// \version 1.0
 /// \date 31-3-2016
-using namespace r2d2;
 
 namespace r2d2{
-    class Clock {
-        
+    class Clock {        
     public:
-        
-        class Duration;
-        
-        class TimeStamp;
-        
-    public:
-        
         //! \returns the current TimeStamp
         static TimeStamp get_current_time();
     };
