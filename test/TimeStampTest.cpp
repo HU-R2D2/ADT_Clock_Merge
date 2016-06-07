@@ -44,13 +44,13 @@ using namespace r2d2;
 namespace r2d2{
 TEST(TimeStamp,  Constructors) {
     
-    TimeStamp t1 = Clock::get_current_time();
-    sleep(1);
-    TimeStamp t2 = Clock::get_current_time();
+    //TimeStamp t1 = Clock::get_current_time();
+    //sleep(1);
+    //TimeStamp t2 = Clock::get_current_time();
     
-    Duration d1 = t2 - t1;
+    //Duration d1 = t2 - t1;
     
-    std::cout << "duration: " << d1 << ", t1: " << t1 << ", t2: " << t2 << '\n';
+    //std::cout << "duration: " << d1 << ", t1: " << t1 << ", t2: " << t2 << '\n';
    // TimeStamp m1;
    // EXPECT_EQ( m1.get_time(), 0 ) << "Default constructor, system time";
 
@@ -66,5 +66,22 @@ TEST(TimeStamp,  Constructors) {
       // cout << e.what() << endl;
    // }
 }
-   
+    
+//TimeStamp operator+ ( const Duration& refDuration ) const;
+TEST(TimeStamp, AddConstDuration) {
+    TimeStamp ts1 = Clock::get_current_time();
+    TimeStamp ts2 = Clock::get_current_time();
+    Duration d = Duration(Duration::SECOND * 1);
+    
+    TimeStamp ts3 = ts1 + d;
+    TimeStamp ts4 = ts2 + d;
+    EXPECT_EQ(ts3.get_time(), ts4.get_time());
+}
+    
+//TimeStamp& operator+= (const Duration& refDuration);
+    
+//TimeStamp operator- ( const Duration& refDuration ) const;
+//TimeStamp& operator-= (const Duration& refDuration);
+    
+//Duration operator- (const TimeStamp& refTimeStamp) const;
 }
