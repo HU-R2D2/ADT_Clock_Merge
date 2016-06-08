@@ -31,7 +31,8 @@
 #include "../source/include/TimeStamp.hpp"
 #include "../source/include/Duration.hpp"
 #include "../source/include/Clock.hpp"
-#include <ctime> // For time test
+//#include <ctime> // For time test
+#include <chrono>
 #include <stdint.h>
 #include <iostream>
 using namespace std;
@@ -49,17 +50,21 @@ bool double_range(double d1, double d2, double offset = 0.001){
 namespace r2d2{
 //assumes it is created if it doesn't crash
 TEST(TimeStamp,  DefaultConstructor) {
-    //TimeStamp t1();
+    TimeStamp ts1();
 }
 
 TEST(TimeStamp,  CopyConstructor) {
-    TimeStamp t1 = Clock::get_current_time();
-    TimeStamp t2(t1);
-    EXPECT_EQ(t2.get_time(), t1.get_time());
+    TimeStamp ts1 = Clock::get_current_time();
+    TimeStamp ts2(ts1);
+    EXPECT_EQ(ts2.get_time(), ts1.get_time());
 }
 
 TEST(TimeStamp,  Assignment) {
-    //TimeStamp ts1();
+    TimeStamp ts1 = Clock::get_current_time();
+    sleep(0.5);
+    TimeStamp ts2 = ts1;
+    
+    EXPECT_EQ(ts1.get_time(), ts2.get_time());
 }
     
 //TimeStamp operator+ ( const Duration& refDuration ) const;
@@ -115,5 +120,36 @@ TEST(TimeStamp, SubstractTimeStamp) {
     
     Duration d2 = ts2 - ts1;
     EXPECT_TRUE(double_range(d1.get_seconds(), d2.get_seconds()));
+}
+
+//friend ostream& operator<< (ostream& lhs, const TimeStamp& refDuration);
+//friend istream& operator>> (istream& lhs, TimeStamp& refDuration);
+TEST(TimeStamp, StreamOperators){
+    TimeStamp ts1;
+    TimeStamp ts2;
+    stringstream ss1;
+    ss1.str("500 1000");
+    ss1 >> ts1 >> ts2;
+    
+    EXPECT_EQ(ts1.get_time(), 500) << "First inpustream incorrect";
+    EXPECT_EQ(ts2.get_time(), 1000) << "Second inputstream incorrect";
+    
+    stringstream ss2;
+    
+    ss2 << ts1 << ' ' << ts2;
+    double d1, d2;
+    
+    ss2 >> d1 >> d2;
+    
+    EXPECT_EQ(ts1.get_time(), d1) << "First outputstream incorrect";
+    EXPECT_EQ(ts2.get_time(), d2) << "Second outputstream incorrect";
+}
+
+//double get_time() const;
+TEST(TimeStamp, get_time){
+    TimeStamp ts1 = Clock::get_current_time();
+    double d1 = (double)std::chrono::high_resolution_clock::now().time_since_epoch().count() 
+    / timeFactor;
+    EXPECT_EQ(ts1.get_time(), d1);
 }
 }
