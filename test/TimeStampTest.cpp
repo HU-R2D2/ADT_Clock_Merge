@@ -41,7 +41,7 @@ using namespace r2d2;
    TimeStamp Tests
 */
 
-bool double_range(double d1, double d2, double offset = 0.0001){
+bool double_range(double d1, double d2, double offset = 0.001){
     return ((d1 - (offset)) < d2) &&
      (d2 < (d1 + (offset)));
 }
@@ -49,7 +49,7 @@ bool double_range(double d1, double d2, double offset = 0.0001){
 namespace r2d2{
 //assumes it is created if it doesn't crash
 TEST(TimeStamp,  DefaultConstructor) {
-    TimeStamp t1();
+    //TimeStamp t1();
 }
 
 TEST(TimeStamp,  CopyConstructor) {
@@ -59,7 +59,7 @@ TEST(TimeStamp,  CopyConstructor) {
 }
 
 TEST(TimeStamp,  Assignment) {
-    TimeStamp t1();
+    //TimeStamp ts1();
 }
     
 //TimeStamp operator+ ( const Duration& refDuration ) const;
@@ -69,16 +69,51 @@ TEST(TimeStamp, AddConstDuration) {
     TimeStamp ts2 = Clock::get_current_time();
     Duration d = Duration(Duration::SECOND * 1);
     
-    TimeStamp ts1old = ts1;
     TimeStamp ts3 = ts1 + d;
-    EXPECT_EQ(ts1.get_time(), ts1old.get_time());
     EXPECT_TRUE(double_range(ts2.get_time(), ts3.get_time()));
 }
     
 //TimeStamp& operator+= (const Duration& refDuration);
+TEST(TimeStamp, AddAssignConstDuration) {
+    TimeStamp ts1 = Clock::get_current_time();
+    sleep(1);
+    TimeStamp ts2 = Clock::get_current_time();
+    Duration d = Duration(Duration::SECOND * 1);
+    
+    ts1 += d;
+    EXPECT_TRUE(double_range(ts1.get_time(), ts2.get_time()));
+}
     
 //TimeStamp operator- ( const Duration& refDuration ) const;
+TEST(TimeStamp, SubstractConstDuration) {
+    TimeStamp ts1 = Clock::get_current_time();
+    sleep(1);
+    TimeStamp ts2 = Clock::get_current_time();
+    Duration d = Duration(Duration::SECOND * 1);
+    
+    TimeStamp ts3 = ts2 - d;
+    EXPECT_TRUE(double_range(ts1.get_time(), ts3.get_time()));
+}
+    
 //TimeStamp& operator-= (const Duration& refDuration);
+TEST(TimeStamp, SubstractAssignConstDuration) {
+    TimeStamp ts1 = Clock::get_current_time();
+    sleep(1);
+    TimeStamp ts2 = Clock::get_current_time();
+    Duration d = Duration(Duration::SECOND * 1);
+    
+    ts2 -= d;
+    EXPECT_TRUE(double_range(ts1.get_time(), ts2.get_time()));
+}
     
 //Duration operator- (const TimeStamp& refTimeStamp) const;
+TEST(TimeStamp, SubstractTimeStamp) {
+    TimeStamp ts1 = Clock::get_current_time();
+    sleep(1);
+    TimeStamp ts2 = Clock::get_current_time();
+    Duration d1 = Duration(Duration::SECOND * 1);
+    
+    Duration d2 = ts2 - ts1;
+    EXPECT_TRUE(double_range(d1.get_seconds(), d2.get_seconds()));
+}
 }
