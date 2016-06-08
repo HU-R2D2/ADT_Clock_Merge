@@ -61,7 +61,6 @@ TEST(TimeStamp,  CopyConstructor) {
 
 TEST(TimeStamp,  Assignment) {
     TimeStamp ts1 = Clock::get_current_time();
-    sleep(0.5);
     TimeStamp ts2 = ts1;
     
     EXPECT_EQ(ts1.get_time(), ts2.get_time());
@@ -74,8 +73,11 @@ TEST(TimeStamp, AddConstDuration) {
     TimeStamp ts2 = Clock::get_current_time();
     Duration d = Duration(Duration::SECOND * 1);
     
+    TimeStamp ts4 = ts1;
     TimeStamp ts3 = ts1 + d;
     EXPECT_TRUE(double_range(ts2.get_time(), ts3.get_time()));
+    EXPECT_EQ(ts1.get_time(), ts4.get_time())
+    << "Ts1 has been edited in + operator";
 }
     
 //TimeStamp& operator+= (const Duration& refDuration);
@@ -96,8 +98,11 @@ TEST(TimeStamp, SubstractConstDuration) {
     TimeStamp ts2 = Clock::get_current_time();
     Duration d = Duration(Duration::SECOND * 1);
     
+    TimeStamp ts4 = ts2;
     TimeStamp ts3 = ts2 - d;
     EXPECT_TRUE(double_range(ts1.get_time(), ts3.get_time()));
+    EXPECT_EQ(ts4.get_time(), ts2.get_time()) << 
+    "Ts1 has been edited in + operator";
 }
     
 //TimeStamp& operator-= (const Duration& refDuration);
@@ -118,8 +123,15 @@ TEST(TimeStamp, SubstractTimeStamp) {
     TimeStamp ts2 = Clock::get_current_time();
     Duration d1 = Duration(Duration::SECOND * 1);
     
+    TimeStamp ts3 = ts1;
+    TimeStamp ts4 = ts2;
+    
     Duration d2 = ts2 - ts1;
     EXPECT_TRUE(double_range(d1.get_seconds(), d2.get_seconds()));
+    EXPECT_EQ(ts3.get_time(), ts1.get_time()) << 
+    "Ts1 has been edited in - operator";
+    EXPECT_EQ(ts4.get_time(), ts2.get_time()) << 
+    "Ts2 has been edited in - operator";
 }
 
 //friend ostream& operator<< (ostream& lhs, const TimeStamp& refDuration);
@@ -145,11 +157,40 @@ TEST(TimeStamp, StreamOperators){
     EXPECT_EQ(ts2.get_time(), d2) << "Second outputstream incorrect";
 }
 
+TEST (TimeStamp, RelationalOperators){
+    TimeStamp ts1 = Clock::get_current_time();
+    sleep(1);
+    TimeStamp ts2 = Clock::get_current_time();
+    EXPECT_TRUE(ts2 > ts1);
+    EXPECT_FALSE(ts1 > ts2);
+    
+    EXPECT_TRUE(ts1 < ts2);
+    EXPECT_FALSE(ts2 < ts1);
+}
+
 //double get_time() const;
 TEST(TimeStamp, get_time){
     TimeStamp ts1 = Clock::get_current_time();
     double d1 = (double)std::chrono::high_resolution_clock::now().time_since_epoch().count() 
     / timeFactor;
     EXPECT_EQ(ts1.get_time(), d1);
+}
+
+//Checks if unintended modifiers throw exceptions
+TEST(TimeStamp, ExceptionSafety){
+    TimeStamp ts1;
+    double d1 = -1000, d2 = 1000;
+    stringstream ss;
+    
+    ss << d2;
+    ss >> ts1;
+    EXPECT_EQ(ts1.get_time(), d2);
+    
+    ss << d1;
+    try{
+      ss >> ts1;
+      EXPECT_NE(ts1.get_time(), d1);
+   }catch(TimeStampException e){
+   }
 }
 }
