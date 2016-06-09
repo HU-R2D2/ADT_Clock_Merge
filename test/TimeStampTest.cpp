@@ -193,4 +193,11 @@ TEST(TimeStamp, ExceptionSafety){
    }catch(TimeStampException e){
    }
 }
+
+TEST(TimeStamp, divideTest){
+    TimeStamp ts1 = Clock::get_current_time();
+    std::cout << ts1 << '\n';
+    ts1 /= 2;
+    std::cout << ts1 << '\n';
+}
 }
