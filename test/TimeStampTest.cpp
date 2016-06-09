@@ -31,12 +31,10 @@
 #include "../source/include/TimeStamp.hpp"
 #include "../source/include/Duration.hpp"
 #include "../source/include/Clock.hpp"
-//#include <ctime> // For time test
 #include <chrono>
 #include <stdint.h>
 #include <iostream>
 using namespace std;
-//using namespace adt;
 using namespace r2d2;
 /**
    TimeStamp Tests
