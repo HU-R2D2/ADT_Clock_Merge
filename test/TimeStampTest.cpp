@@ -42,7 +42,7 @@ using namespace r2d2;
    TimeStamp Tests
 */
 
-bool double_range(double d1, double d2, double offset = 0.001){
+bool double_range(double d1, double d2, double offset = 0.005){
     return ((d1 - (offset)) < d2) &&
      (d2 < (d1 + (offset)));
 }
@@ -192,12 +192,5 @@ TEST(TimeStamp, ExceptionSafety){
       EXPECT_NE(ts1.get_time(), d1);
    }catch(TimeStampException e){
    }
-}
-
-TEST(TimeStamp, divideTest){
-    TimeStamp ts1 = Clock::get_current_time();
-    std::cout << ts1 << '\n';
-    ts1 /= 2;
-    std::cout << ts1 << '\n';
 }
 }
