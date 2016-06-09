@@ -3,7 +3,7 @@
 
 #include <chrono>
 #include <iostream>
-#include "duration.hpp"
+#include "../../../adt/source/include/duration.hpp"
 #include "timestamp.hpp"
 
 /// The main Clock object, which holds Clock::Duration and Clock::TimeStamp

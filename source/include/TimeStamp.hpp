@@ -34,8 +34,8 @@
 #define _TIMESTAMP_HPP
 
 
-#include "ADT_Base.hpp"
-#include "Duration.hpp"
+#include "../../../adt/source/include/ADT_Base.hpp"
+#include "../../../adt/source/include/Duration.hpp"
 #include <assert.h> 
 #include <iostream>
 #include <stdlib.h> 

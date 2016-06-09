@@ -29,7 +29,7 @@
 // ++--++
 #include "gtest/gtest.h"
 #include "../source/include/TimeStamp.hpp"
-#include "../source/include/Duration.hpp"
+#include "../../../adt/source/include/Duration.hpp"
 #include "../source/include/Clock.hpp"
 //#include <ctime> // For time test
 #include <chrono>
@@ -42,7 +42,7 @@ using namespace r2d2;
    TimeStamp Tests
 */
 
-bool double_range(double d1, double d2, double offset = 0.005){
+bool double_range(double d1, double d2, double offset = 0.01){
     return ((d1 - (offset)) < d2) &&
      (d2 < (d1 + (offset)));
 }
@@ -50,7 +50,7 @@ bool double_range(double d1, double d2, double offset = 0.005){
 namespace r2d2{
 //assumes it is created if it doesn't crash
 TEST(TimeStamp,  DefaultConstructor) {
-    TimeStamp ts1();
+    TimeStamp ts1;
 }
 
 TEST(TimeStamp,  CopyConstructor) {
@@ -173,7 +173,7 @@ TEST(TimeStamp, get_time){
     TimeStamp ts1 = Clock::get_current_time();
     double d1 = (double)std::chrono::high_resolution_clock::now().time_since_epoch().count() 
     / timeFactor;
-    EXPECT_EQ(ts1.get_time(), d1);
+    EXPECT_TRUE(double_range(ts1.get_time(), d1));
 }
 
 //Checks if unintended modifiers throw exceptions
