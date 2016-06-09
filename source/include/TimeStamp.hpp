@@ -134,6 +134,16 @@ public:
    //! @brief Returns current TimeStamp in time as a double
    //! @return Current time held by this TimeStamp as a double
    double get_time() const;
+   
+   //The following operators are deleted because they serve no purpose.
+   //They were orignally declared in ATD_Base
+   TimeStamp operator* (double number) const = delete;
+   TimeStamp operator*= (double number) = delete;
+   TimeStamp operator/ (double number) const = delete;
+   TimeStamp operator/= (double number) = delete;
+   double operator/ (const TimeStamp & rhs) const = delete;
+   friend TimeStamp operator * (double n, const TimeStamp & rhs) = delete;
+   
 private:
    //!   @brief Creates a TimeStamp by its given parameter
    //!   @param time Time that will be stored within TimeStamp
