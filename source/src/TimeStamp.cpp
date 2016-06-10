@@ -14,10 +14,18 @@
 // Copyright © 2016, HU University of Applied Sciences Utrecht.
 // All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-// - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-// - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-// - Neither the name of the HU University of Applied Sciences Utrecht nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+// Redistribution and use in source and binary forms, with or
+// without modification, are permitted provided that the following conditions are met:
+// - Redistributions of source code must retain the above
+// copyright notice, this list of conditions and the following disclaimer.
+// - Redistributions in binary form must reproduce the
+// above copyright notice, this list of conditions and the
+// following disclaimer in the documentation and/or other
+// materials provided with the distribution.
+// - Neither the name of the HU University of
+// Applied Sciences Utrecht nor the names of its contributors
+// may be used to endorse or promote products derived
+// from this software without specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
@@ -36,82 +44,82 @@ namespace r2d2{
 TimeStamp::TimeStamp( ) {
 }
 TimeStamp::TimeStamp(double value) throw (TimeStampException) :  ADT_Base{value} {
-   if(this->value < 0)  {
-      throw TimeStampException("TimeStamp exception");
-   }
-      
+    if(this->value < 0)  {
+        throw TimeStampException("TimeStamp exception");
+    }
+                
 }
 TimeStamp& TimeStamp::operator= (const TimeStamp& m)  {
-   if(&m == this) {
-      return *this;
-   }
+    if(&m == this) {
+        return *this;
+    }
     this->value = m.value;
     return *this;
 }
 TimeStamp TimeStamp::operator+ ( const Duration & rhs ) const  {
-   // Return new TimeStamp that is the result of adding a given Duration
-   // Old TimeStamp is not modified
-   // If addition results in < 0, return 0
-   double saved_result;
-   TimeStamp rTimeStamp(0);
-   if( (saved_result = (this->value + rhs.get_seconds()) ) < 0)  {
-      rTimeStamp.value = 0;
-      return rTimeStamp;
-   }
-   rTimeStamp.value = this->value + rhs.get_seconds();
-   return rTimeStamp;
+    // Return new TimeStamp that is the result of adding a given Duration
+    // Old TimeStamp is not modified
+    // If addition results in < 0, return 0
+    double saved_result;
+    TimeStamp rTimeStamp(0);
+    if( (saved_result = (this->value + rhs.get_seconds()) ) < 0)  {
+        rTimeStamp.value = 0;
+        return rTimeStamp;
+    }
+    rTimeStamp.value = this->value + rhs.get_seconds();
+    return rTimeStamp;
 }
 TimeStamp TimeStamp::operator- ( const Duration & rhs ) const  {
-   // If Subtraction results in a time smaller than 0, return 0
-   double saved_result;
-   TimeStamp rTimeStamp(0);
-   if( (saved_result = (this->value - rhs.get_seconds()) ) < 0)  {
-      rTimeStamp.value = 0;
-      return rTimeStamp;
-   }
-   rTimeStamp.value = saved_result;
-   return rTimeStamp;
+    // If Subtraction results in a time smaller than 0, return 0
+    double saved_result;
+    TimeStamp rTimeStamp(0);
+    if( (saved_result = (this->value - rhs.get_seconds()) ) < 0)  {
+        rTimeStamp.value = 0;
+        return rTimeStamp;
+    }
+    rTimeStamp.value = saved_result;
+    return rTimeStamp;
 }
 Duration TimeStamp::operator- (const TimeStamp & rhs) const {
-   // Return new Duration that is the result of subtracting a given TimeStamp
-   // Old TimeStamp not modified
-   // If Subtracting results in a time smaller than 0, return Duration of 0
-   assert(rhs.value > 0);
-   double saved_result;
-   if( (saved_result = (this->value - rhs.value) ) < 0)   {
-      return (0 * Duration::SECOND);
-   }
-   return (saved_result * Duration::SECOND);
+    // Return new Duration that is the result of subtracting a given TimeStamp
+    // Old TimeStamp not modified
+    // If Subtracting results in a time smaller than 0, return Duration of 0
+    assert(rhs.value > 0);
+    double saved_result;
+    if( (saved_result = (this->value - rhs.value) ) < 0)        {
+        return (0 * Duration::SECOND);
+    }
+    return (saved_result * Duration::SECOND);
 }
 
 TimeStamp& TimeStamp::operator+= (const Duration & rhs)  {
-   //Does not change Duration
-   this->value += rhs.get_seconds();
-   return *this;
+    //Does not change Duration
+    this->value += rhs.get_seconds();
+    return *this;
 }
 
 TimeStamp& TimeStamp::operator-= (const Duration & rhs)  {
-   //Does not change Duration
-   this->value -= rhs.get_seconds();
-   return *this;
+    //Does not change Duration
+    this->value -= rhs.get_seconds();
+    return *this;
 }
 
 double TimeStamp::get_time() const  {
-   return this->value;
+    return this->value;
 }
 
-ostream& operator<< (ostream & lhs, const TimeStamp &rhs)   {
-   lhs << rhs.value;
-   return lhs;
+ostream& operator<< (ostream & lhs, const TimeStamp &rhs)        {
+    lhs << rhs.value;
+    return lhs;
 }
 
 istream& operator>> (istream & lhs, TimeStamp & rhs)  {
-   double read_error = -1;
-   lhs >> read_error;
-   if(read_error <= -1) {
-      throw TimeStampException("TimeStamp Exception");
-   }
-   rhs.value = read_error;
-   return lhs;
+    double read_error = -1;
+    lhs >> read_error;
+    if(read_error <= -1) {
+        throw TimeStampException("TimeStamp Exception");
+    }
+    rhs.value = read_error;
+    return lhs;
 }
 }
