@@ -3,7 +3,7 @@
 
 #include <chrono>
 #include <iostream>
-#include "duration.hpp"
+#include "../../../adt/source/include/duration.hpp"
 #include "timestamp.hpp"
 
 /// The main Clock object, which holds Clock::Duration and Clock::TimeStamp
@@ -14,7 +14,8 @@
 /// \date 31-3-2016
 
 namespace r2d2{
-    class Clock {        
+#define timeFactor (1000 * 1000 * 1000) // makes time_point scale to seconds
+    class Clock {      
     public:
         //! \returns the current TimeStamp
         static TimeStamp get_current_time();
