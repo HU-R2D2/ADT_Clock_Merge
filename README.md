@@ -1,25 +1,15 @@
-# ADT
+# ADT_Clock_Merge
 
 What is it?
 -----------
-Abstract Data Types or ADTs are C++ classes that typically implement a value-like semantic.
-They are often corresponding to a physical notion. An important thing about Abstract Data 
-Types is that a good ADT is final and contains only Plain Old Data types or PODs, and for that
-no pointers or references. Some examples of PODs are integers, floats and doubles. In this case, doubles are used.  
+At the start of the R2D2 project, two different clock's were created. One as a seperate clock object with TimeStamp and Duration, the other 2 abstract data types named Moment and Duration.
+Because this could cause confusion during development, the 2 different clocks had to be merged into one.
+The new clock is part of the ADT's. Duration has remained unchanged and Moment has been renamed to TimeStamp.
+This project is the merging of the 2 different clocks.
   
-
-Important note 
-------------------
-As previously stated, these ADTs have doubles as underlying types. 
-This could result in unpredictable results for the equality operators (== and !=) due to slight precision errors.
-Therefore these operators are not supported for these ADTs. Another reason is that it forces checking whether a
-value is within a range rather than exactly equal. Which solves issues where a measurement never gets to the expected 
-result due to an ever so slight difference.  
  
 Documentation
 -------------
 The documentation available as of the date of this release is available on
-https://roborescue.nl/index.php/Abstract_Data_Types 
+https://roborescue.nl/index.php/Abstract_Data_Types
 this is the most up-to-date documentation on this project
-  
-
