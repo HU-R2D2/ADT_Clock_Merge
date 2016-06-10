@@ -178,8 +178,9 @@ TEST (TimeStamp, RelationalOperators){
 //double get_time() const;
 TEST(TimeStamp, get_time){
     TimeStamp ts1 = Clock::get_current_time();
-    double d1 = (double)std::chrono::high_resolution_clock::now().time_since_epoch().count() 
-    / timeFactor;
+    double d1 = (double)std::chrono::high_resolution_clock::now()
+        .time_since_epoch().count()
+        / timeFactor;
     EXPECT_TRUE(double_range(ts1.get_time(), d1));
 }
 
